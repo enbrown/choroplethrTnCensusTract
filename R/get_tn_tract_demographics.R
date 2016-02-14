@@ -1,4 +1,4 @@
-#' Get a handful of demographic variables on California Census Tracts from the US Census Bureau as a data.frame.
+#' Get a handful of demographic variables on Tennessee Census Tracts from the US Census Bureau as a data.frame.
 #' 
 #' The data comes from the American Community Survey (ACS). The variables are: total population, percent White 
 #' not Hispanic, Percent Black or African American not Hispanic, percent Asian not Hispanic,
@@ -10,30 +10,30 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' df = get_ca_tract_demographics(endyear=2010, span=5)
+#' df = get_tn_tract_demographics(endyear=2010, span=5)
 #' colnames(df)
 #'
 #' # analyze the percent of people who are white not hispanic
 #' # a boxplot shows the distribution
 #' boxplot(df$percent_white)
 #' 
-#' # a choropleth map shows the location of the values in california
+#' # a choropleth map shows the location of the values in tennessee
 #' # set the 'value' column to be the column we want to render
 #' df$value = df$percent_white
-#' ca_tract_choropleth(df, 
+#' tn_tract_choropleth(df, 
 #'                     title="2010 Census Tracts\nPercent White not Hispanic", 
 #'                     legend="Percent")
 #'
 #' # zoom into san francisco county
-#' ca_tract_choropleth(df, 
+#' tn_tract_choropleth(df, 
 #'                     title="2010 Census Tracts\nPercent White not Hispanic", 
 #'                     legend="Percent",
 #'                     county_zoom=6075)
 #' }
-get_ca_tract_demographics = function(endyear=2013, span=5)
+get_tn_tract_demographics = function(endyear=2013, span=5)
 {  
-  all.ca.tracts = get_all_ca_tracts()
-  race.data = acs::acs.fetch(geography    = all.ca.tracts, 
+  all.tn.tracts = get_all_tn_tracts()
+  race.data = acs::acs.fetch(geography    = all.tn.tracts, 
                              table.number = "B03002", 
                              col.names    = "pretty", 
                              endyear      = endyear, 
@@ -60,15 +60,15 @@ get_ca_tract_demographics = function(endyear=2013, span=5)
   df_race = df_race[, c("region", "total_population", "percent_white", "percent_black", "percent_asian", "percent_hispanic")]
   
   # per capita income 
-  df_income = get_ca_tract_acs_data("B19301", endyear=endyear, span=span)[[1]]   
+  df_income = get_tn_tract_acs_data("B19301", endyear=endyear, span=span)[[1]]   
   colnames(df_income)[[2]] = "per_capita_income"
   
   # median rent
-  df_rent = get_ca_tract_acs_data("B25058", endyear=endyear, span=span)[[1]]  
+  df_rent = get_tn_tract_acs_data("B25058", endyear=endyear, span=span)[[1]]  
   colnames(df_rent)[[2]] = "median_rent"
   
   # median age
-  df_age = get_ca_tract_acs_data("B01002", endyear=endyear, span=span, column_idx=1)[[1]]  
+  df_age = get_tn_tract_acs_data("B01002", endyear=endyear, span=span, column_idx=1)[[1]]  
   colnames(df_age)[[2]] = "median_age"
   
   df_demographics = merge(df_race        , df_income, all.x=TRUE)

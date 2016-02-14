@@ -1,21 +1,21 @@
-#' An R6 object for creating choropleths of California Census Tracts.
+#' An R6 object for creating choropleths of Tennessee Census Tracts.
 #' @export
 #' @importFrom dplyr left_join
 #' @importFrom R6 R6Class
 #' @importFrom choroplethr Choropleth
-CaTractChoropleth = R6Class("CaTractChoropleth",
+TnTractChoropleth = R6Class("TnTractChoropleth",
   inherit = choroplethr::Choropleth,
   public = list(
     
-    # initialize with a map of California Census Tracts
+    # initialize with a map of Tennessee Census Tracts
     initialize = function(user.df)
     {
-      data(ca.tract.map, package="choroplethrCaCensusTract", envir=environment())
-      super$initialize(ca.tract.map, user.df)
+      data(tn.tract.map, package="choroplethrTnCensusTract", envir=environment())
+      super$initialize(tn.tract.map, user.df)
       
       if (private$has_invalid_regions)
       {
-        warning("Please see ?ca.tract.regions for a list of mappable regions")
+        warning("Please see ?tn.tract.regions for a list of mappable regions")
       }
     },
     
@@ -32,15 +32,15 @@ CaTractChoropleth = R6Class("CaTractChoropleth",
         stop("You can only zoom in by one of county_zoom or tract_zoom")
       }
       
-      data(ca.tract.regions, package="choroplethrCaCensusTract", envir=environment())
+      data(tn.tract.regions, package="choroplethrTnCensusTract", envir=environment())
       
       # if the zip_zoom field is selected, just do default behavior
       if (!is.null(tract_zoom)) {
         super$set_zoom(tract_zoom)
       # if county_zoom field is selected, extract zips from counties  
       } else if (!is.null(county_zoom)) {
-        stopifnot(all(county_zoom %in% unique(ca.tract.regions$county.fips.numeric)))
-        tracts = ca.tract.regions[ca.tract.regions$county.fips.numeric %in% county_zoom, "region"]
+        stopifnot(all(county_zoom %in% unique(tn.tract.regions$county.fips.numeric)))
+        tracts = tn.tract.regions[tn.tract.regions$county.fips.numeric %in% county_zoom, "region"]
         super$set_zoom(tracts)        
       }
     }
@@ -48,19 +48,19 @@ CaTractChoropleth = R6Class("CaTractChoropleth",
   )
 )
 
-#' Create a choropleth of US Census Tracts in California
+#' Create a choropleth of US Census Tracts in Tennessee
 #' 
 #' @param df A data.frame with a column named "region" and a column named "value".  Elements in 
-#' the "region" column must exactly match how census tracts are labelled in in the "region" column in ?ca.tract.regions
+#' the "region" column must exactly match how census tracts are labelled in in the "region" column in ?tn.tract.regions
 #' @param title An optional title for the map.  
 #' @param legend An optional name for the legend.  
 #' @param num_colors The number of colors on the map. A value of 1 
 #' will use a continuous scale. A value in [2, 9] will use that many colors. 
 #' @param tract_zoom An optional vector of tracts to zoom in on. Elements of this vector must exactly 
-#' match the names of tracts as they appear in the "region" column of ?ca.tract.regions.
+#' match the names of tracts as they appear in the "region" column of ?tn.tract.regions.
 #' @param county_zoom An optional vector of county FIPS codes to zoom in on. Elements of this 
 #' vector must exactly match the names of counties as they appear in the "county.fips.numeric" column 
-#' of ?ca.tract.regions.
+#' of ?tn.tract.regions.
 #' @param reference_map If true, render the choropleth over a reference map from Google Maps.
 #'
 #' @seealso \url{https://www.census.gov/geo/reference/gtc/gtc_ct.html} for more information on Census Tracts
@@ -72,14 +72,14 @@ CaTractChoropleth = R6Class("CaTractChoropleth",
 #' @importFrom scales comma
 #' @examples
 #' # zoom in on Los Angeles, which has FIPS code 6037
-#' data(df_pop_ca_tract)
-#' ca_tract_choropleth(df_pop_ca_tract,
+#' data(df_pop_tn_tract)
+#' tn_tract_choropleth(df_pop_tn_tract,
 #'                     title  = "2012 Los Angeles Census Tract\n Population Estimates",
 #'                     legend = "Population",
 #'                     county_zoom = 6037)                  
 #'
 #' # add a reference map
-#' ca_tract_choropleth(df_pop_ca_tract,
+#' tn_tract_choropleth(df_pop_tn_tract,
 #'                     title  = "2012 Los Angeles Census Tract\n Population Estimates",
 #'                     legend        = "Population",
 #'                     county_zoom   = 6037,
@@ -87,21 +87,21 @@ CaTractChoropleth = R6Class("CaTractChoropleth",
 #'
 #' \dontrun{
 #' 
-#' ca_tract_choropleth(df_pop_ca_tract,
-#'                     title  = "2012 California Census Tract\n Population Estimates",
+#' tn_tract_choropleth(df_pop_tn_tract,
+#'                     title  = "2012 Tennessee Census Tract\n Population Estimates",
 #'                     legend = "Population")
 #'
 #' # 2013 per capita income estimate
-#' data(df_ca_tract_demographics)
-#' df_ca_tract_demographics$value = df_ca_tract_demographics$per_capita
-#' ca_tract_choropleth(df_ca_tract_demographics,
+#' data(df_tn_tract_demographics)
+#' df_tn_tract_demographics$value = df_tn_tract_demographics$per_capita
+#' tn_tract_choropleth(df_tn_tract_demographics,
 #'                     title         = "2013 Los Angeles Census Tract\n Per Capita Income",
 #'                     legend        = "Income",
 #'                     num_colors    = 4,
 #'                     county_zoom   = 6037,
 #'                     reference_map = TRUE)
 #' }
-ca_tract_choropleth = function(df, 
+tn_tract_choropleth = function(df, 
                                title         = "", 
                                legend        = "", 
                                num_colors    = 7, 
@@ -109,7 +109,7 @@ ca_tract_choropleth = function(df,
                                county_zoom   = NULL, 
                                reference_map = FALSE)
 {
-  c = CaTractChoropleth$new(df)
+  c = TnTractChoropleth$new(df)
   c$title  = title
   c$legend = legend
   c$set_zoom_tract(tract_zoom = tract_zoom, county_zoom = county_zoom)

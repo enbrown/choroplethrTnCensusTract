@@ -1,14 +1,15 @@
-# choroplethrCaCensusTract
+# choroplethrTnCensusTract
 <!--
-v1.0.0: [![Build Status](https://travis-ci.org/arilamstein/choroplethrCaCensusTract.svg?branch=v1.0.0)](https://travis-ci.org/arilamstein/choroplethrCaCensusTract/branches) 
+v1.0.0: [![Build Status](https://travis-ci.org/enbrown/choroplethrTnCensusTract.svg?branch=v1.0.0)](https://travis-ci.org/enbrown/choroplethrTnCensusTract/branches) 
 
-Master: [![Build Status](https://travis-ci.org/arilamstein/choroplethrCaCensusTract.svg)](https://travis-ci.org/arilamstein/choroplethrCaCensusTract)
+Master: [![Build Status](https://travis-ci.org/enbrown/choroplethrTnCensusTract.svg)](https://travis-ci.org/enbrown/choroplethrTnCensusTract)
 -->
-Shapefile, metadata and visualization functions for US Census Tracts in California
+Shapefile, metadata and visualization functions for US Census Tracts
+in Tennessee (forked from arilamstein/choroplethrCaCensusTract
 
 ## Development
 
-I blog about this package's development [here](http://www.arilamstein.com/blog).
+Go to the original project https://github.com/arilamstein/choroplethrCaCensusTract
 
 ## Installation
 
@@ -17,10 +18,10 @@ To install the package type the following:
 ```
 # install.packages("devtools")
 library(devtools)
-install_github("arilamstein/choroplethrCaCensusTract@v1.1.0")
-library(choroplethrCaCensusTract)
+install_github("enbrown/choroplethrTnCensusTract")
+library(choroplethrTnCensusTract)
 ```
 
 ## Documentation
 
-Besides the built-in documentation, you can learn more about this package on the [blog post](http://www.arilamstein.com/blog/2015/06/11/new-package-choroplethrcacensustract/) I wrote about it, which includes several examples. 
+None yet

@@ -1,16 +1,18 @@
-Package: choroplethrCaCensusTract
-Title:  Shapefile, Metadata and Visualization Functions for US Census Tracts in California
+Package: choroplethrTnCensusTract
+Title: Shapefile, Metadata and Visualization Functions for US Census Tracts in
+    Tennessee
 Description: The shapefile is taken from the US Census Bureau's 2010
     Cartographic Boundary Shapefiles - Census Tracts. See
-    ?ca.tract.map for additional information. Visualization functions 
+    ?ca.tract.map for additional information. Visualization functions
     are ?ca_tract_choropleth and ?ca_tract_choropleth_acs.
 Version: 1.1.0
-Date: 2015-09-25
-Author: Ari Lamstein
-Maintainer: Ari Lamstein <arilamstein@gmail.com>
+Date: 2016-02-13
+Author: Eric N. Brown
+Maintainer: Eric N. Brown <eric.n.brown@gmail.com>
 License: MIT + file LICENSE
 URL: https://github.com/arilamstein/choroplethrCaCensusTract,
-    https://groups.google.com/forum/#!forum/choroplethr
+    https://groups.google.com/forum/#!forum/choroplethr,
+    https://github.com/enbrown/choroplethrTnCensusTract
 Imports:
     R6,
     scales,
@@ -19,5 +21,6 @@ Imports:
     ggplot2,
     dplyr,
     acs
-Depends: 
+Depends:
     choroplethr (>= 3.3.0)
+RoxygenNote: 5.0.1
